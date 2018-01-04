@@ -1,0 +1,1 @@
+curl -v -X POST -F file=@d:\Pictures\VK\20120727-DSC_0458.jpg localhost:8080/images

@@ -1,0 +1,1 @@
+java -jar build/libs/learning-spring-boot-video-0.0.1-SNAPSHOT.jar --debug
