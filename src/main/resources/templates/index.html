@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+>
 <head>
     <meta charset="UTF-8"/>
     <title>Learning Spring Boot File</title>
@@ -8,6 +11,14 @@
 </head>
 <body>
 
+<div>
+    <span sec:authentication="name"/> has
+    <span sec:authentication="authorities"/>
+    <form method="post" th:action="@{/logout}">
+        <input type="submit" value="Sign Off"/>
+    </form>
+</div>
+<h1>Learning Spring Video</h1>
 <h3 th:if="${#vars['flash.message']}" th:text="${#vars['flash.message']}" class="flash"/>
 
 <h3 th:text="${page.number + 1} + ' of ' + ${page.totalPages}"/>
@@ -56,13 +67,13 @@
             var redrawCurrentPage = function (message) {
                 console.log(message);
                 window.location =
-                        /* [[@{/(size=${page.size}, page=${page.number})}]] */'';
+                    /* [[@{/(size=${page.size}, page=${page.number})}]] */'';
             }
 
             var socket = SockJS('/imageMessages');
             var stompClient = Stomp.over(socket);
             stompClient.connect({
-                        /* Optional headers */
+                    /* Optional headers */
                 }, function
                     (frame) {
                     stompClient.subscribe('/topic/newMessage', redrawCurrentPage)

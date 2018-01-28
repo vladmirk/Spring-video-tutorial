@@ -10,9 +10,10 @@ import javax.persistence.Id;
 @Entity
 public class Image {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private long id;
-    private String  name;
+    private String name;
 
     private Image() {
     }

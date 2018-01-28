@@ -30,7 +30,8 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 //    compile('org.springframework.boot:spring-boot-starter-remote-shell')
     compile('org.springframework.boot:spring-boot-starter-websocket')
-
+    compile('org.springframework.boot:spring-boot-starter-security')
+    compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4')
     compile('org.webjars:requirejs:2.2.0')
     compile('org.webjars.npm:stompjs:2.3.3') {
         exclude module: 'websocket' // We are using SockJS for websocket function
