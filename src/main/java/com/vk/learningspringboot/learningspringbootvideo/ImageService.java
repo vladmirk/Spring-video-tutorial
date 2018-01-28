@@ -9,7 +9,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
@@ -75,7 +77,8 @@ public class ImageService {
         }
     }
 
-    public void deleteImage(String name) throws IOException {
+    @PreAuthorize("@imageRepository.findByName(#filename)?.user?.username == authentication?.name or hasRole('ADMIN')")
+    public void deleteImage(@Param("filename") String name) throws IOException {
         final Image byName = imageRepository.findByName(name);
         imageRepository.delete(byName);
         Files.deleteIfExists(Paths.get(UPLOAD_ROOT, name));

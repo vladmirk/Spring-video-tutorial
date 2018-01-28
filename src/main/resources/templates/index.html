@@ -11,13 +11,21 @@
 </head>
 <body>
 
+
 <div>
-    <span sec:authentication="name"/> has
-    <span sec:authentication="authorities"/>
-    <form method="post" th:action="@{/logout}">
+    <span sec:authentication="name"/> has <span sec:authentication="authorities"/>
+    <form sec:authorize-expr="isFullyAuthenticated()" method="post" th:action="@{/logout}">
         <input type="submit" value="Sign Off"/>
     </form>
+    <form sec:authorize-expr="!isFullyAuthenticated()" method="post" th:action="@{/login}">
+        <label>User:</label> <input type="text" name="username" value=""/>
+        <label>Password:</label> <input type="password" name="password" value=""/>
+        <input type="submit" value="Sign on"/>
+
+    </form>
+
 </div>
+
 <h1>Learning Spring Video</h1>
 <h3 th:if="${#vars['flash.message']}" th:text="${#vars['flash.message']}" class="flash"/>
 
@@ -43,7 +51,8 @@
         <td><a th:href="@{'/images/' + ${image.name} + '/raw'}"><img th:src="@{'/images/' + ${image.name} + '/raw'}"
                                                                      class="thumbnail"/></a></td>
         <td>
-            <form th:method="delete" th:action="@{'/images/' + ${image.name}}">
+            <form sec:authorize-expr="isFullyAuthenticated()" th:method="delete"
+                  th:action="@{'/images/' + ${image.name}}">
                 <input type="submit" value="Delete"/>
             </form>
         </td>
@@ -57,7 +66,7 @@
 
 </ul>
 
-<form method="post" enctype="multipart/form-data" th:action="@{/images}">
+<form sec:authorize-expr="hasAnyRole('USER')" method="post" enctype="multipart/form-data" th:action="@{/images}">
     <p><input type="file" name="file"/></p>
     <p><input type="submit" name="Upload"/></p>
 </form>

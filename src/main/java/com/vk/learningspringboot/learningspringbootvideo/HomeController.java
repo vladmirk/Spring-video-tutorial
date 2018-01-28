@@ -56,7 +56,7 @@ public class HomeController {
         try {
             service.createImage(file);
             redirectAttributes.addFlashAttribute("flash.message", "Successfully uploaded " + file.getOriginalFilename());
-        } catch (IOException e) {
+        } catch (Exception e) {
             redirectAttributes.addFlashAttribute("flash.message", "Failed to upload " + file.getOriginalFilename() + " => " + e.getMessage());
         }
         return "redirect:/";
@@ -67,7 +67,7 @@ public class HomeController {
         try {
             service.deleteImage(filename);
             redirectAttributes.addFlashAttribute("flash.message", "Successfully deleted" + filename);
-        } catch (IOException e) {
+        } catch (Exception e) {
             redirectAttributes.addFlashAttribute("flash.message", "Failed to delete" + filename + " =>" + e.getMessage());
         }
         return "redirect:/";
