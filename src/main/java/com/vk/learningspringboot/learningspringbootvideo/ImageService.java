@@ -92,8 +92,8 @@ public class ImageService {
 
         return (args) -> {
 
-            User user1 = userRepository.save(new User("user1", "pass", "USER"));
-            User user2 = userRepository.save(new User("user2", "pass", "USER", "OPERATOR"));
+            User user1 = userRepository.save(new User("user1", "pass", "ROLE_USER"));
+            User user2 = userRepository.save(new User("user2", "pass", "ROLE_USER", "ROLE_OPERATOR"));
 
 
             FileCopyUtils.copy("Test file", new FileWriter(UPLOAD_ROOT + "/test"));
